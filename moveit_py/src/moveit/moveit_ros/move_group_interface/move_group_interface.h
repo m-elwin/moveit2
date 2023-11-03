@@ -1,7 +1,7 @@
 /*********************************************************************
  * Software License Agreement (BSD License)
  *
- *  Copyright (c) 2022, Peter David Fagan
+ *  Copyright (c) 2023, Matthew Elwin
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -32,27 +32,19 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
-/* Author: Peter David Fagan */
+/* Author: Matthew Elwin*/
 
-#include "moveit_ros/moveit_cpp/moveit_cpp.h"
-#include "moveit_ros/moveit_cpp/planning_component.h"
-#include "moveit_ros/planning_scene_monitor/planning_scene_monitor.h"
-#include "moveit_ros/move_group_interface/move_group_interface.h"
+#pragma once
 
-PYBIND11_MODULE(planning, m)
+#include <pybind11/pybind11.h>
+#include <moveit/move_group_interface/move_group_interface.h>
+
+namespace py = pybind11;
+
+namespace moveit_py
 {
-  m.doc() = "Python bindings for moveit_cpp functionalities.";
-
-  // Provide custom function signatures
-  py::options options;
-  options.disable_function_signatures();
-
-  // Construct module classes
-  moveit_py::bind_planning_component::init_plan_request_parameters(m);
-  moveit_py::bind_planning_component::init_multi_plan_request_parameters(m);
-  moveit_py::bind_planning_component::init_planning_component(m);
-  moveit_py::bind_planning_scene_monitor::init_planning_scene_monitor(m);
-  moveit_py::bind_planning_scene_monitor::init_context_managers(m);
-  moveit_py::bind_moveit_cpp::init_moveit_py(m);
-  moveit_py::bind_move_group_interface::init_move_group_interface(m);
-}
+namespace bind_move_group_interface
+{
+void init_move_group_interface(py::module& m);
+}  // namespace bind_move_group_interface
+}  // namespace moveit_py
